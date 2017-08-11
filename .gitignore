@@ -1,0 +1,7 @@
+./article_app/build/
+./article_lib/build/
+./service_article/build/
+./service_crawler/build/
+./service_eureka/build/
+./service_user/build/
+./service_zuul/build/
