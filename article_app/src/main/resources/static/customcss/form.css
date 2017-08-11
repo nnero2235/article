@@ -1,0 +1,13 @@
+.form-common{
+    position:fixed;
+    top:40px;
+}
+
+.form-msg{
+    margin-top:10px;
+    color:red;
+}
+
+.form-heading{
+    margin-bottom:10px;
+}

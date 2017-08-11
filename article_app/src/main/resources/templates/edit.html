@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="@{../static/head.jpg}"/>
+
+    <title>个人中心</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/customcss/main.css}" rel="stylesheet"/>
+    <link th:href="@{/customcss/form.css}" rel="stylesheet"/>
+
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+<div class="row col-sm-offset-2">
+    <form class="form-horizontal" th:action="@{/edit.do}" th:object="${user}" method="post">
+        <h2 class="form-heading">修改密码</h2>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >昵称</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  name="nickname" th:value="*{getNickname()}" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >旧密码</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="password" class="form-control"  name="password" th:value="*{getPassword()}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >新密码</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="password" class="form-control"  name="newPassword" th:value="*{getNewPassword()}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >新密码确认</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="password" class="form-control"  name="sureNewPassword" th:value="*{getSureNewPassword()}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >年龄</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  name="age" th:value="*{getAge()}" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >性别</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  name="sex" th:value="*{getSex()}" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label class="control-label" >手机</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  name="tel" th:value="*{getTel()}" readonly="readonly"/>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">修改密码</button>
+        </div>
+        <div class="form-group">
+            <label class="form-msg" th:text="*{getMsg()}"></label>
+        </div>
+    </form>
+</div>
+</div> <!-- /container -->
+</body>
+</html>

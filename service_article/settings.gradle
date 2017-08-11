@@ -1,0 +1,3 @@
+rootProject.name = 'service_article'
+include("service_article",":..:article_lib")
+

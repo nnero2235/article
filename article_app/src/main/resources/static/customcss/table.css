@@ -1,0 +1,25 @@
+.table-common{
+    margin-top:40px;
+}
+
+.right-area{
+    margin-left:100px;
+}
+
+.center-button{
+    margin-left:50%;
+    margin-bottom:20px;
+}
+
+.right-top-area{
+    margin-left:100px;
+    margin-top:30px;
+}
+
+.table th, .table td {
+    vertical-align: middle!important;
+}
+
+.button-padding{
+    margin-left:10px;
+}

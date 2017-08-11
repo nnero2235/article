@@ -1,0 +1,17 @@
+
+
+.main-list{
+    margin-top:70px;
+}
+
+.al a{
+    color:#000000;
+}
+
+.al a:hover{
+    color:#8FBC8F;
+}
+
+.al a:visited{
+    color:#8E388E;
+}

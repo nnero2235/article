@@ -1,0 +1,2 @@
+rootProject.name = 'service_zuul'
+include("service_zuul",":..:article_lib")

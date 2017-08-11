@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nnero.mapper.ArticleDetailMapper">
+    <insert id="insertArticle" parameterType="ArticleDetail" useGeneratedKeys="true"
+            keyColumn="ad_id" keyProperty="adId">
+        INSERT INTO article_detail (origin_id,content)
+        VALUES (#{originId},#{content})
+    </insert>
+</mapper>

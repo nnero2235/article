@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nnero.mapper.ArticleUserMapper">
+    <resultMap id="asMap" type="ArticleSummary">
+        <result column="as_id" property="asId" jdbcType="INTEGER"/>
+        <result column="origin_id" property="originId" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="summary" property="summary" jdbcType="VARCHAR"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="likes" property="likes" jdbcType="INTEGER"/>
+        <result column="comments" property="comments" jdbcType="INTEGER"/>
+        <result column="write_time" property="writeTime" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="adMap" type="ArticleDetail">
+        <result column="ad_id" property="adId" jdbcType="INTEGER"/>
+        <result column="origin_id" property="originId" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="likes" property="likes" jdbcType="INTEGER"/>
+        <result column="liked" property="liked" jdbcType="INTEGER"/>
+        <collection property="comments" column="origin_id" select="getComments">
+            <result column="comment" javaType="String"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="alMap" type="ArticleLike">
+        <result column="al_id" property="alId" jdbcType="INTEGER"/>
+        <result column="origin_id" property="originId" jdbcType="CHAR"/>
+        <result column="u_id" property="uId" jdbcType="CHAR"/>
+        <result column="like_time" property="likeTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="acMap" type="ArticleComment">
+        <result column="ac_id" property="acId" jdbcType="INTEGER"/>
+        <result column="origin_id" property="originId" jdbcType="CHAR"/>
+        <result column="u_id" property="uId" jdbcType="CHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+        <result column="comment_time" property="commentTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getArticleList" resultMap="asMap">
+        SELECT a.as_id as as_id,
+                a.origin_id as origin_id,
+                a.title as title,
+                a.summary as summary,
+                a.author as author,
+                a.write_time as write_time,
+                a.last_modify_time as last_modify_time,
+                (SELECT COUNT(*) FROM article_likes al WHERE al.origin_id=a.origin_id)
+                    as likes,
+                (SELECT COUNT(*) FROM article_comments ac WHERE ac.origin_id=a.origin_id)
+                    as comments
+        FROM article_summary a
+        WHERE a.category=#{category}
+        LIMIT #{start},#{total}
+    </select>
+
+    <select id="getArticleDetail" parameterType="String" resultMap="adMap">
+        SELECT ad.ad_id as ad_id,
+                ad.origin_id as origin_id,
+                ad.content as content,
+                (SELECT COUNT(*) FROM article_likes al WHERE al.origin_id=ad.origin_id)
+                    as likes,
+                (SELECT COUNT(*) FROM article_likes al
+                    WHERE al.origin_id=ad.origin_id AND al.u_id=#{uId})
+                    as liked
+        FROM article_detail ad WHERE ad.origin_id=#{oId}
+    </select>
+
+    <select id="getComments" parameterType="String" resultType="String">
+        SELECT comment FROM article_comments WHERE origin_id=#{origin_id}
+    </select>
+
+    <insert id="insertArticleLike" parameterType="ArticleLike" useGeneratedKeys="true"
+            keyColumn="al_id" keyProperty="alId">
+        INSERT INTO article_likes (origin_id,u_id,like_time)
+        VALUES (#{originId},#{uId},#{likeTime})
+    </insert>
+
+    <delete id="deleteArticleLike" parameterType="ArticleLike">
+        DELETE FROM article_likes WHERE origin_id=#{originId} AND u_id=#{uId}
+    </delete>
+
+    <select id="getArticleLike" resultMap="alMap">
+        SELECT * FROM article_likes WHERE origin_id=#{oId} AND u_id=#{uId}
+    </select>
+
+    <insert id="insertArticleComment" parameterType="ArticleComment" useGeneratedKeys="true"
+            keyColumn="ac_id" keyProperty="acId">
+        INSERT INTO article_comments (origin_id,u_id,comment,comment_time)
+        VALUES (#{originId},#{uId},#{comment},#{commentTime})
+    </insert>
+
+</mapper>
