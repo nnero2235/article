@@ -2,7 +2,7 @@
 
 
 
-if [ $# != 2 ]; then
+if [ $# != 1 ]; then
     echo "must be specified launch mode: start,stop or restart!"
 elif [ $1 == 'start' ]; then
     ./db.sh
