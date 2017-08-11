@@ -34,3 +34,4 @@
 /service_zuul/.gradle/
 
 *.log
+*.sh
