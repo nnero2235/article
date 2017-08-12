@@ -37,7 +37,7 @@ public abstract class Crawler {
         this.mStartURL = startURL;
         this.mFetchQueueKey = fetchQueueKey;
         this.mFetchedQueueKey = fetchedQueueKey;
-        this.mPool = new CrawlerPool(5);
+        this.mPool = new CrawlerPool(2);
     }
 
     public void shutdown() {
@@ -84,6 +84,7 @@ public abstract class Crawler {
                         timeCount = 0;
                         mRedisClient.opsForSet().add(mFetchedQueueKey,url);
                         try {
+                            logger.info("GET --->: "+url);
                             String response = mHttpClient.get(url,getHeaders(url));
                             logger.info("Download Success: "+url);
                             doWithResult(response,url);
