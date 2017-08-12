@@ -31,6 +31,10 @@ repositories {
     mavenCentral()
 }
 
+springBoot{
+    executable=true
+}
+
 //spring cloud 依赖管理  每个版本对应的 spring-boot版本 是一一对应关系 若不对应 则可能报错
 dependencyManagement{
     imports{
